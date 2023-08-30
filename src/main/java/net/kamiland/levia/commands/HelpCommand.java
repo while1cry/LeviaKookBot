@@ -2,6 +2,7 @@ package net.kamiland.levia.commands;
 
 import net.kamiland.levia.Levia;
 import net.kamiland.levia.settings.Config;
+import net.kamiland.levia.utils.CardTemplate;
 import snw.jkook.command.CommandExecutor;
 import snw.jkook.command.CommandSender;
 import snw.jkook.entity.Guild;
@@ -32,7 +33,7 @@ public class HelpCommand implements CommandExecutor {
             User user = (User) sender;
 
             // 判断 guild 的身份
-            if (!guild.getId().equals("9754303612253342")) {
+            if (! Config.SERVER_LIST.contains(guild.getId())) {
                 Levia.getInstance().getLogger().info(guild.getId() + " 并不是官方服务器!");
                 return;
             }
@@ -71,15 +72,7 @@ public class HelpCommand implements CommandExecutor {
                             completions.add("$聊天 屏蔽词 列表  ————  显示屏蔽词列表");
                             break;
                         default:
-                            msg.reply(
-                              new CardBuilder()
-                                      .setSize(Size.LG)
-                                      .setTheme(Theme.WARNING)
-                                      .addModule(new HeaderModule(new PlainTextElement("未知的指令")))
-                                      .addModule(new SectionModule(new PlainTextElement("请使用指令 $help 查看更多信息")))
-                                      .addModule(new ContextModule(Levia.CONTEXT))
-                                      .build()
-                            );
+                            msg.reply(CardTemplate.getUnknownCommandCard());
                             return;
                     }
 
@@ -103,6 +96,7 @@ public class HelpCommand implements CommandExecutor {
                 .setTheme(Theme.INFO)
                 .addModule(new HeaderModule(new PlainTextElement("指令帮助")))
                 .addModule(new SectionModule(new PlainTextElement(sb.toString())))
+                .addModule(new ContextModule(Levia.CONTEXT))
                 .build();
 
         return card;

@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class Levia extends BasePlugin {
-    public static final List<BaseElement> CONTEXT = Arrays.asList(new MarkdownElement("莱薇娅 v1.4  |  [Github](https://github.com/while1cry/LeviaKookBot)"));
+    public static final List<BaseElement> CONTEXT = Arrays.asList(new MarkdownElement("莱薇娅 v1.4.1  |  [Github](https://github.com/while1cry/LeviaKookBot)"));
 
     private static Levia instance;
     private static Logger logger;

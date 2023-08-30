@@ -3,6 +3,7 @@ package net.kamiland.levia.commands;
 import net.kamiland.levia.Levia;
 import net.kamiland.levia.functions.BroadCast;
 import net.kamiland.levia.settings.Config;
+import net.kamiland.levia.utils.CardTemplate;
 import snw.jkook.JKook;
 import snw.jkook.command.CommandExecutor;
 import snw.jkook.command.CommandSender;
@@ -35,7 +36,7 @@ public class BroadCastCommand implements CommandExecutor {
             User user = (User) sender;
 
             // 判断 guild 的身份
-            if (!guild.getId().equals("9754303612253342")) {
+            if (! Config.SERVER_LIST.contains(guild.getId())) {
                 Levia.getInstance().getLogger().info(guild.getId() + " 并不是官方服务器!");
                 return;
             }
@@ -45,15 +46,7 @@ public class BroadCastCommand implements CommandExecutor {
             if (Config.OWNERS.contains(user.getId()) || Config.ADMINS.contains(user.getId())) {
                 if (args == null || args.length < 1) {
                     // 参数不足，构建回复卡片
-                    card = new CardBuilder()
-                            .setSize(Size.LG)
-                            .setTheme(Theme.DANGER)
-                            .addModule(new HeaderModule(new PlainTextElement("参数异常")))
-                            .addModule(new SectionModule(new PlainTextElement("请使用指令 $help 查看更多信息")))
-                            .addModule(new ContextModule(Levia.CONTEXT))
-                            .build();
-
-                    msg.reply(card);
+                    msg.reply(CardTemplate.getWrongUsageCard());
                     return;
                 }
 
@@ -76,15 +69,7 @@ public class BroadCastCommand implements CommandExecutor {
                         msg.reply(card);
                     } else {
                         // 参数异常，构建回复卡片
-                        card = new CardBuilder()
-                                .setSize(Size.LG)
-                                .setTheme(Theme.DANGER)
-                                .addModule(new HeaderModule(new PlainTextElement("参数异常")))
-                                .addModule(new SectionModule(new PlainTextElement("请使用指令 $help 查看更多信息")))
-                                .addModule(new ContextModule(Levia.CONTEXT))
-                                .build();
-
-                        msg.reply(card);
+                        msg.reply(CardTemplate.getWrongUsageCard());
                     }
                 } else {
                     List<TextChannel> channels = new ArrayList<>();

@@ -6,13 +6,10 @@ import snw.jkook.config.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Config {
-    public static String SERVER_ID;
+    public static List<String> SERVER_LIST;
     public static List<String> OWNERS;
     public static List<String> ADMINS;
     public static String WELCOME_CHANNEL;
@@ -33,7 +30,8 @@ public class Config {
         config.options().copyDefaults(true);
         Map<String, Object> map = new LinkedHashMap<>();
 
-        map.put("server-id", "9754303612253342");
+        List<String> servers = Arrays.asList("9754303612253342", "3493027572146521");
+        map.put("servers", servers);
 
         List<String> owners = new ArrayList<>();
         owners.add("2673173047");
@@ -64,7 +62,7 @@ public class Config {
 
         // Starting loading variables of config.yml
 
-        SERVER_ID = config.getString("server-id");
+        SERVER_LIST = config.getStringList("servers");
         OWNERS = config.getStringList("owners");
         ADMINS = config.getStringList("admins");
         WELCOME_CHANNEL = config.getString("welcome-channel");

@@ -3,6 +3,7 @@ package net.kamiland.levia.listeners;
 import net.kamiland.levia.Levia;
 import net.kamiland.levia.functions.BroadCast;
 import net.kamiland.levia.functions.ChatManager;
+import net.kamiland.levia.settings.Config;
 import snw.jkook.entity.Guild;
 import snw.jkook.entity.User;
 import snw.jkook.entity.channel.TextChannel;
@@ -36,7 +37,7 @@ public class ChannelMessage implements Listener {
         User user = msg.getSender();
 
         // 判断 guild 的身份
-        if (! guild.getId().equals("9754303612253342")) {
+        if (! Config.SERVER_LIST.contains(guild.getId())) {
             Levia.getInstance().getLogger().info(guild.getId() + " 并不是官方服务器!");
             return;
         }
